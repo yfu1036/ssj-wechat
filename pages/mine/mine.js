@@ -1,5 +1,5 @@
 //index.js
-//获取应用实例
+// 获取应用实例
 const app = getApp()
 
 Page({
@@ -9,7 +9,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  //事件处理函数
+  // 事件处理函数
   bindViewTap: function () {
     wx.navigateTo({
       url: '../logs/logs'
@@ -17,15 +17,18 @@ Page({
   },
   onLoad: function () {
     if (app.globalData.userInfo) {
+      // 小程序本地已缓存用户信息，直接取
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
     } else if(this.data.canIUse) {
+      // 无缓存信息但已获取授权
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
         console.log(res.userInfo)
+        app.globalData.userInfo = res.userInfo
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -46,7 +49,7 @@ Page({
     }
   },
 
-  //授权登录按钮绑定事件
+  // 授权登录按钮绑定事件
   bindGetUserInfo: function (e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -63,7 +66,10 @@ Page({
         if (code) {
           wx.request({
             url: 'http://localhost:8003/user/api/release/wxLogin',
-            data: { code: code },
+            data: {
+              code: code,
+              nickName: this.globalData.userInfo.nickName 
+            },
             method: 'POST',
             header: {
               'content-type': 'application/json'

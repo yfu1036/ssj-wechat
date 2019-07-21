@@ -33,8 +33,10 @@ App({
                   if (code) {
                     wx.request({
                       url: 'http://localhost:8003/user/api/release/wxLogin',
-                      data: { code: code,
-                        nickName: this.globalData.userInfo.nickName },
+                      data: { 
+                        code: code,
+                        nickName: this.globalData.userInfo.nickName 
+                      },
                       method: 'POST',
                       header: {
                         'content-type': 'application/json'
@@ -42,7 +44,7 @@ App({
                       success: function (res) {
                         if (res.statusCode == 200) {
                           console.log("获取到的token为:" + res.data)
-                          that.globalData.token = res.data
+                          this.globalData.token = res.data
                           wx.setStorageSync('token', res.data)
                         } else {
                           console.log(res.errMsg)
@@ -63,6 +65,7 @@ App({
 
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    token: null
   }
 })
