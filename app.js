@@ -6,7 +6,7 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    const that = this;
     // 授权获取用户信息
     wx.getSetting({
       success: res => {
@@ -28,14 +28,13 @@ App({
                 success: loginRes => {
                   // 发送 res.code 到后台换取 openId, sessionKey, unionId
                   var code = loginRes.code;
-                  console.log("获取到的微信code为:" + code)
-                  console.log("获取到的微信昵称为:" + this.globalData.userInfo.nickName)
+                  console.log("获取到code:" + code + ",nickName:" + this.globalData.userInfo.nickName)
                   if (code) {
                     wx.request({
-                      url: 'http://localhost:8003/user/api/release/wxLogin',
+                      url: 'http://localhost:9003/user/api/release/wxLogin',
                       data: { 
                         code: code,
-                        nickName: this.globalData.userInfo.nickName 
+                        nickName: that.globalData.userInfo.nickName 
                       },
                       method: 'POST',
                       header: {
@@ -43,9 +42,10 @@ App({
                       },
                       success: function (res) {
                         if (res.statusCode == 200) {
-                          console.log("获取到的token为:" + res.data)
-                          this.globalData.token = res.data
-                          wx.setStorageSync('token', res.data)
+                          console.log("获取到的token:", res.data.data)
+                          that.globalData.token = res.data.data
+                          // 缓存
+                          wx.setStorageSync('token', res.data.data)
                         } else {
                           console.log(res.errMsg)
                         }

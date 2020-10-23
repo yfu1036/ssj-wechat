@@ -51,8 +51,8 @@ Page({
 
   // 授权登录按钮绑定事件
   bindGetUserInfo: function (e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
+    console.log('userInfo = ', app.globalData.userInfo);
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
@@ -62,13 +62,14 @@ Page({
     wx.login({
       success: res => {
         // 发送res.code到后台换取openId, sessionKey, unionId
-        var code = res.code;
+        var code = res.code; 
+        console.log("获取到code:" + code + ",nickName:" + app.globalData.userInfo.nickName)
         if (code) {
           wx.request({
-            url: 'http://localhost:8003/user/api/release/wxLogin',
+            url: 'http://localhost:9003/user/api/release/wxLogin',
             data: {
               code: code,
-              nickName: this.globalData.userInfo.nickName 
+              nickName: app.globalData.userInfo.nickName 
             },
             method: 'POST',
             header: {
@@ -76,9 +77,9 @@ Page({
             },
             success: function (res) {
               if (res.statusCode == 200) {
-                console.log("获取到的token为：" + res.data)
-                that.globalData.token = res.data.token
-                wx.setStorageSync('token', res.data.token)
+                console.log("获取到的token:" + res.data.data)
+                app.globalData.token = res.data.data
+                wx.setStorageSync('token', res.data.data)
               } else {
                 console.log(res.errMsg)
               }
