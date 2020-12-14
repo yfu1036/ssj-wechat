@@ -1,42 +1,19 @@
-// pages/card/card.js
+// pages/card/detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
-  },
-
-  bank_click: () => {
-    wx.navigateTo({
-      url: './detail?type="bank"',
-    })
-  },
-
-  internet_click: () => {
-    wx.navigateTo({
-      url: './detail?type="internet"',
-    })
-  },
-
-  life_click: () => {
-    wx.navigateTo({
-      url: './detail?type="life"',
-    })
-  },
-
-  other_click: () => {
-    wx.navigateTo({
-      url: './detail?type="other"',
-    })
+    type: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.type= options.type;
+    console.log('type:'+this.type);
   },
 
   /**

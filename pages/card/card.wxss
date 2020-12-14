@@ -1,1 +1,9 @@
 /* pages/card/card.wxss */
+.card-btn {
+  width:360rpx;
+  height:60rpx;
+  font-size:25rpx;
+  line-height:60rpx;
+  margin-top:50px;
+
+}

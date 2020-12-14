@@ -3,7 +3,8 @@
     "pages/account/account",
     "pages/mine/mine",
     "pages/card/card",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/card/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

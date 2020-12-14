@@ -1,2 +1,7 @@
 <!--pages/card/card.wxml-->
-<text>即将上线</text>
+<view class="card-class">
+    <button class="card-btn" bindtap='bank_click'>银行卡</button>
+    <button class="card-btn" bindtap='internet_click'>互联网</button>
+    <button class="card-btn" bindtap='life_click'>生活</button>
+    <button class="card-btn" bindtap='other_click'>其他</button>
+</view>

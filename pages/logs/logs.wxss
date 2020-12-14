@@ -6,3 +6,10 @@
 .log-item {
   margin: 10rpx;
 }
+
+.type-btn {
+  width:160rpx;
+height:60rpx;
+font-size:25rpx;
+line-height:60rpx;
+}
